@@ -36,6 +36,11 @@
     <el-button type="text" @click="deleteItem(index)" class="delete">×</el-button>
   </div>
   <span @click="add" class="add"><span>＋</span> 添加设备</span>
+  <div>
+    <span @click="changeClick('+')">+</span>
+    <span>{{this.$store.state.app.num}}</span>
+    <span @click="changeClick('-')">-</span>
+  </div>
 </div>
 </template>
 
@@ -44,7 +49,6 @@ import Label from "../components/label";
 import NewTag from "../components/new_tag";
 import MessageBox from "../components/MessageBox";
 import mock from "../mock/mock";
-import axios from "axios";
 
 export default {
   // 项目管理
@@ -100,7 +104,9 @@ export default {
       ]
     };
   },
-  mounted() {},
+  mounted() {
+    console.log('this.$store....',this.$store)
+  },
   methods: {
     add() {
       this.form.push({});
@@ -163,6 +169,12 @@ export default {
     getChildrenValue() {
       console.log(this.formNameChildren);
       this.formNameChildren = this.form[0].label;
+    },
+    changeClick(type) {
+      this.$store.commit({
+        type: 'app/changNum',
+        payload: type
+      })
     }
   }
 };
