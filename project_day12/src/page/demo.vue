@@ -171,8 +171,8 @@ export default {
       this.formNameChildren = this.form[0].label;
     },
     changeClick(type) {
-      this.$store.commit({
-        type: 'app/changNum',
+      this.$store.dispatch({
+        type: 'app/changeNumSync',
         payload: type
       })
     }
