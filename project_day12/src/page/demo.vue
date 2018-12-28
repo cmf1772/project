@@ -38,7 +38,7 @@
   <span @click="add" class="add"><span>＋</span> 添加设备</span>
   <div>
     <span @click="changeClick('+')">+</span>
-    <span>{{this.$store.state.app.num}}</span>
+    <span>{{Num}}</span>
     <span @click="changeClick('-')">-</span>
   </div>
 </div>
@@ -49,8 +49,20 @@ import Label from "../components/label";
 import NewTag from "../components/new_tag";
 import MessageBox from "../components/MessageBox";
 import mock from "../mock/mock";
+import {mapState, mapMutations, mapGetters, mapActions} from 'vuex';
 
 export default {
+  computed: {
+    ...mapState({
+      Num:state => state.app.num
+    }),
+    ...mapMutations({
+      changNum: 'app/changNum'
+    }),
+    ...mapActions({
+      changeNumSync: 'app/changeNumSync'
+    })
+  },
   // 项目管理
   name: "ProjectManageList",
   data() {
@@ -105,7 +117,7 @@ export default {
     };
   },
   mounted() {
-    console.log('this.$store....',this.$store)
+    // console.log('this.$store....',this.$store)
   },
   methods: {
     add() {
@@ -171,9 +183,9 @@ export default {
       this.formNameChildren = this.form[0].label;
     },
     changeClick(type) {
-      this.$store.dispatch({
-        type: 'app/changeNumSync',
-        payload: type
+      
+      this.changeNumSync(type).then(res => {
+        console.log('异步加载完成')
       })
     }
   }
