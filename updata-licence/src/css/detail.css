@@ -5328,7 +5328,8 @@ html.with-statusbar-overlay .popup.tablet-fullscreen {
   position: absolute;
   width: 100%;
   left: 0;
-  top: .2rem
+  top: -2rem;
+  z-index: 999;
 }
 
 .newBanner p span {

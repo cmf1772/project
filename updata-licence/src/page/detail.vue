@@ -11,7 +11,7 @@
         <div class="swiper-container">
             <div id="banner" class="swiper-wrapper">
                 <div class="swiper-slide">
-                    <a href="javascript:void(0);"><img src="https://h5.chelun.com/2017/update-licence2-pay/img/banner@3x.png"></a>
+                    <img src="../assets/banner.png">
                 </div>
             </div>
             <div class="swiper-pagination"></div>
