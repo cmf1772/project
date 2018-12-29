@@ -1,6 +1,7 @@
 <template>
     <div>
    <div>
+     123456456
     <el-select class="el-select" v-model="form.label" placeholder="全部" clearable
                filterable 
         @change="getValue"
