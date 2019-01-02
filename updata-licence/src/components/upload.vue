@@ -9,8 +9,8 @@
         <div v-show="showMask" class="mask">
              <img :src="current.demo">
              <div>
-                <button>拍照</button>
-                <button>相册</button>
+                <button @click="upload(1)">拍照</button>
+                <button @click="upload(2)">相册</button>
                 <button @click="cancel">取消</button>
             </div>
         </div>
@@ -21,6 +21,7 @@
 <script>
 import { mapState } from "vuex";
 import add from "@/assets/add.png";
+import {uploadImg} from '@/api/index';
 
 export default {
   name: "uploda",
@@ -46,6 +47,24 @@ export default {
     },
     cancel() {
         this.showMask = !this.showMask;
+    },
+    upload(type) {
+        uploadImg(type).then(res=>{
+        if (res.code == 0){
+          let src = '';
+          if (/picture.eclicks.cn/.test(res.data.image01)) {
+              src = res.data.image01.replace('http://', '//');
+          } else {
+              src = '//picture.eclicks.cn/' + res.data.image01;
+          }
+          this.updataList({
+            src,
+            index: this.list.findIndex(item=>item==this.current)
+          })
+        }else{
+          alert(res.msg);
+        }
+      })
     }
   }
 };
