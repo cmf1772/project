@@ -6,10 +6,20 @@
 </template>
 
 <script>
+const chelunJSBridge = require('../utils/JSBridge.js')
 
-export default {};
+export default {
+  methods: {
+    login() {
+      chelunJSBridge.invoke("app", "login", {
+        loginCallBackName: res => {
+          console.log("res...", res);
+        }
+      });
+    }
+  }
+};
 </script>
 
 <style>
-
 </style>

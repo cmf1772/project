@@ -20,7 +20,10 @@
     <div class="newBanner">
         <p>已有<span></span>个用户在车轮补换驾照成功</p>
     </div>
-    <div id="upload"></div>
+   
+    <div id="upload">
+        <UpLoda />
+    </div>
     <div class="info">
         <div class="rSelect">
             服务类型 
@@ -82,7 +85,13 @@
 </template>
 
 <script>
-export default {};
+import UpLoda from '@/components/upload'
+
+export default {
+    components: {
+        UpLoda
+    }
+};
 </script>
 
 <style>
