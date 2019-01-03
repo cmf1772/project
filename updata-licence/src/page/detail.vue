@@ -1,6 +1,6 @@
 <template>
+  <div>
     <div>
-        
      <div class="newFlow">
          <div class="flow-current">订单提交</div>
          <div class="flow-no">填写收货地址</div>
@@ -22,19 +22,21 @@
     </div>
    
     <div id="upload">
-        <UpLoda />
+        <Upload />
     </div>
     <div class="info">
         <div class="rSelect">
-            服务类型 
-            <select name="" id="type">
-                <option value="1">换驾照</option>
-                <option value="2">补驾照</option>
-            </select>
+            <TypePicker/>
         </div>
+        <van-popup v-model="showCity" position="bottom" :overlay="true">
+            <van-picker :columns="cityArray" @change="cityChange" ref="cityPicker" @cancel="onCancel" show-toolbar title="请选择签发城市" @confirm="cityConfirm"/>
+        </van-popup>
         <div>
             <p>当前驾照签发城市<span class="help"></span></p>
-            <input placeholder="请选择签发地" id="city-picker">
+            <li @click="clickCity">
+                <span>当前驾照签发城市</span>
+                <span>{{info.city.join(' ')}}</span>
+            </li>
         </div>
         <div id="ele">
             <p>可补换的签发城市<span class="help"></span></p>
@@ -82,18 +84,93 @@
         <div class="masks">
         </div>
     </div>
+    <section>
+       
+    </section>
+    <section>
+      <van-popup v-model="showCity" position="bottom" :overlay="true">
+        <van-picker :columns="cityArray" @change="cityChange" ref="cityPicker" @cancel="onCancel" show-toolbar title="请选择签发城市" @confirm="cityConfirm"/>
+      </van-popup>
+    </section>
+  </div>
 </template>
 
 <script>
-import UpLoda from '@/components/upload'
-
+import Upload from "@/components/Upload";
+import TypePicker from "@/components/TypePicker";
+import { cityList, costList } from "@/api/index";
 export default {
-    components: {
-        UpLoda
+  data() {
+    return {
+      showType: false,
+      showCity: false,
+      typeArray: ["补驾照", "换驾照"],
+      // 签发城市
+      cityList: [],
+      cityArray: [],
+      info: {
+        type: "",
+        city: []
+      }
+    };
+  },
+  created() {
+    this.getCityList();
+  },
+  components: {
+    Upload,
+    TypePicker
+  },
+  methods: {
+    async getCityList() {
+      let res = await cityList();
+      //   res.data.forEach(item => {
+      //     item.list.forEach(value => {
+      //       delete value.list;
+      //     });
+      //   });
+      //   this.cityList = res.data;s
+      //   this.cityArray = [
+      //     {
+      //       values: this.cityList.map(item => item.name)
+      //     },
+      //     {
+      //       values: this.cityList[0].list.map(item => item.name)
+      //     }
+      //   ];
+    },
+    cityChange(picker, values) {
+      let index = this.cityList.findIndex(item => item.name == values[0]);
+      this.cityArray[1].values = this.cityList[index].list.map(
+        item => item.name
+      );
+      this.$refs.cityPicker.setColumnValues(
+        1,
+        this.cityList[index].list.map(item => item.name)
+      );
+    },
+    cityConfirm(values) {
+      this.info.city = values;
+      this.showCity = false;
+    },
+    onCancel(e) {
+      this.showType = false;
+    },
+    onConfirm(value) {
+      console.log("value...", value);
+      this.info.type = value;
+      this.onCancel();
+    },
+    clickType() {
+      this.showType = true;
+    },
+    clickCity() {
+      this.showCity = true;
     }
+  }
 };
 </script>
 
 <style>
-@import url('../css/detail.css');
+@import url("../css/detail.css");
 </style>

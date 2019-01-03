@@ -6,7 +6,7 @@
 </template>
 
 <script>
-const chelunJSBridge = require('../utils/JSBridge.js')
+import chelunJSBridge from '../utils/JSBridge.js'
 
 export default {
   methods: {

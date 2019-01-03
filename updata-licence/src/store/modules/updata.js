@@ -28,6 +28,15 @@ const state = {
     }]
 }
 
+const mutations = {
+    updateList(state, payload) {
+        console.log('state...',state,'payload...',payload)
+        state.list[payload.index].src = payload.src;
+    }
+}
+
 export default {
-    state
+    namespaced: true,
+    state,
+    mutations
 }
