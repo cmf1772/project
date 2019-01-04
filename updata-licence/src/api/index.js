@@ -1,4 +1,3 @@
-// const host = /localhost/.test(window.location.host)?'https://h5.chelun.com':'http://h5-test.chelun.com';
 import JSBridge from '@/utils/JSBridge.js';
 
 function sendRequest(url, method = 'GET', data = {}) {
@@ -35,5 +34,5 @@ export let cityList = ()=>{
 }
 
 export let costList = (...params)=>{
-  return sendRequest(`/api/ExchangeJiaZhao/getCostList?order_type=${params.type}&city_id=${params.city_id}&province_id=${params.pro_id}`);
+  return sendRequest(`/api/ExchangeJiaZhao/getCostList?order_type=${params[0]}&province_id=${params[1]}&city_id=${params[2]}`);
 }

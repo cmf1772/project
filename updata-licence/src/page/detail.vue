@@ -32,15 +32,9 @@
             <van-picker :columns="cityArray" @change="cityChange" ref="cityPicker" @cancel="onCancel" show-toolbar title="请选择签发城市" @confirm="cityConfirm"/>
         </van-popup>
         <div>
-            <p>当前驾照签发城市<span class="help"></span></p>
-            <li @click="clickCity">
-                <span>当前驾照签发城市</span>
-                <span>{{info.city.join(' ')}}</span>
-            </li>
+            <CityPicker />
         </div>
-        <div id="ele">
-            <p>可补换的签发城市<span class="help"></span></p>
-            <input placeholder="请选择补换地" id="change"></div>
+        
             <div>
                 <span>服务费</span>
                 <div>
@@ -99,6 +93,7 @@
 import Upload from "@/components/Upload";
 import TypePicker from "@/components/TypePicker";
 import { cityList, costList } from "@/api/index";
+import CityPicker from '@/components/CityPicker'
 export default {
   data() {
     return {
@@ -119,7 +114,8 @@ export default {
   },
   components: {
     Upload,
-    TypePicker
+    TypePicker,
+    CityPicker
   },
   methods: {
     async getCityList() {
