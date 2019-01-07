@@ -3,7 +3,7 @@
     <div>
       <logo/>
       <h1 class="title">
-        zhihu
+        我的页面
       </h1>
       <h2 class="subtitle">
         My swell Nuxt.js project
